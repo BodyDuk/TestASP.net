@@ -14,7 +14,25 @@ namespace FilmWebPortal.Controllers
     public class ActorsController : Controller
     {
         private FilmsContextcs db = new FilmsContextcs();
-
+        private string URLSaver;
+        public ActionResult Сrutch()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Сrutch2(string URL)
+        {
+            URLSaver += URL;
+            //WebClient wc = new WebClient();
+            //TODO DownloadFile
+            //wc.DownloadFile(URL, @"logo.gif");
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Сrutch2()
+        {
+            return View();
+        }
         // GET: Actors
         public async Task<ActionResult> Index()
         {

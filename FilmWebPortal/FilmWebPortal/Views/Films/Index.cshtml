@@ -24,23 +24,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => (item.ReleaseDay).ToString())@*//TODO*@
-        </td>
-        <td>
-            @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Деталі", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var FilmItem in Model)//TO DO
+    {
+           
+                @Html.DisplayFor(modelItem => FilmItem.Name)
+            
+                @Html.DisplayFor(modelItem => FilmItem.Description)
+            
+                @Html.DisplayFor(modelItem => FilmItem.ReleaseDay)@*//TODO*@
+            
+                <h4>В ролях: </h4>
+                foreach (var Actoritem in FilmItem.Actors)
+                {
+          
+                    @Html.DisplayFor(modelItem => Actoritem.FirstName)
+               
+                    @Html.DisplayFor(modelItem => Actoritem.LastName)
+           
+        }
+
+
+               
+               
+                    @*@Html.ActionLink("Редагувати", "Edit", new { id = FilmItem.Id }) |
+                    @Html.ActionLink("Деталі", "Details", new { id = FilmItem.Id }) |
+                    @Html.ActionLink("Видалити", "Delete", new { id = FilmItem.Id })*@
+                
+            }
 
 </table>

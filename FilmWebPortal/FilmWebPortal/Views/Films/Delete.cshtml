@@ -1,0 +1,48 @@
+﻿@model FilmWebPortal.Models.Film
+
+@{
+    ViewBag.Title = "Delete";
+   
+
+<h2>Вилучити</h2>
+
+<h3 style="color:red;">Ви впевннені що хочите вилучити цього актора?</h3>
+<div>
+    <h4>Фільм</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDay)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Повернутися до списку", "Index")
+        </div>
+    }
+</div>

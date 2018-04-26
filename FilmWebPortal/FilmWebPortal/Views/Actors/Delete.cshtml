@@ -1,0 +1,48 @@
+﻿@model FilmWebPortal.Models.Actor
+
+@{
+    ViewBag.Title = "Вилучити";
+}
+
+<h2>Вилучити</h2>
+<h3 style="color:red;">Ви впевннені що хочите вилучити цього актора?</h3>
+<div>
+    <h4>Актор</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            color="read"
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Вилучити" class="btn btn-default" color: red/> |
+            @Html.ActionLink("Повернутися до списку", "Index")
+        </div>
+    }
+</div>

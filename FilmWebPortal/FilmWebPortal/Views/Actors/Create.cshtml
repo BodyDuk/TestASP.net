@@ -9,10 +9,10 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <iframe src="https://localhost:44349/Actors/%D0%A1rutch" width="256" height="256"></iframe>
+    <iframe src="https://localhost:44349/Actors/%D0%A1rutch" width="280" height="280"></iframe>
 
     <div class="form-horizontal">
-        <h4>Актор</h4>
+        <h4>Додайте фото актора </h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

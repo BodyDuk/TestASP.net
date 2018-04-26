@@ -37,12 +37,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {@Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Повернутися до списку", "Index")
-        </div>
-    }
+    <div class="form-actions a">
+        <input style="background-color:red" ; type="submit" value="Вилучити" class="btn btn-default" /> |
+        @Html.ActionLink("Повернутися до списку", "Index")
+    </div>
+}
 </div>

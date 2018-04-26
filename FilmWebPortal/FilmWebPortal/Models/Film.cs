@@ -9,11 +9,9 @@ namespace FilmWebPortal.Models
     public class Film
     {
         public int Id { get; set; }
-        //[Display(Name = "Назва")]
-        //[Required(ErrorMessage = "Поле Має бути заповнене")]
-      //  [StringLength(50, MinimumLength = 2, ErrorMessage = "Довжина назви має бути віж 2 до 50 символів")]
-        public string Name { get; set; }
         [Display(Name = "Назва")]
+        public string Name { get; set; }
+        [Display(Name = "Опис")]
         public string Description { get; set; }
         [Display(Name = "Дата виходу")]
         public DateTime ReleaseDay { get; set; }

@@ -37,7 +37,7 @@ namespace FilmWebPortal.Models
                 Description = "Зо́ряні ві́йни — культова епічна фантастична медіафраншиза, яка розповідає про різні конфлікти і війни в «далекій-далекій галактиці».",
                 ReleaseDay = new DateTime(1977, 5, 25),
                 Actors = new List<Actor>() { actor1, actor2, actor3 },
-                Director = director3
+                Director = director2
             };
             Film s3 = new Film
             {

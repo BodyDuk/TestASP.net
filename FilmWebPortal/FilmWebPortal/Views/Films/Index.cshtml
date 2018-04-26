@@ -10,6 +10,7 @@
 <p>
     @Html.ActionLink("Додати", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -21,35 +22,45 @@
         <th>
             @Html.DisplayNameFor(model => model.ReleaseDay)
         </th>
-        <th></th>
+        <th>
+            <b>В ролях</b>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Director.Name)
+        </th>
+        <th>
+            
+        </th>
     </tr>
 
     @foreach (var FilmItem in Model)//TO DO
     {
-           
-                @Html.DisplayFor(modelItem => FilmItem.Name)
-            
-                @Html.DisplayFor(modelItem => FilmItem.Description)
-            
-                @Html.DisplayFor(modelItem => FilmItem.ReleaseDay)@*//TODO*@
-            
-                <h4>В ролях: </h4>
-                foreach (var Actoritem in FilmItem.Actors)
-                {
-          
-                    @Html.DisplayFor(modelItem => Actoritem.FirstName)
-               
-                    @Html.DisplayFor(modelItem => Actoritem.LastName)
-           
-        }
-
-
-               
-               
-                    @*@Html.ActionLink("Редагувати", "Edit", new { id = FilmItem.Id }) |
-                    @Html.ActionLink("Деталі", "Details", new { id = FilmItem.Id }) |
-                    @Html.ActionLink("Видалити", "Delete", new { id = FilmItem.Id })*@
-                
-            }
-
+    <tr>
+        <td>
+            @Html.DisplayFor(model => FilmItem.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => FilmItem.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(model => FilmItem.ReleaseDay)
+        </td>
+        <td>
+            <b>| </b>
+            @foreach (var ActorItem in FilmItem.Actors)
+            {
+                 @Html.DisplayFor(modelItem => ActorItem.FirstName)
+                 <b>  </b>
+                 @Html.DisplayFor(modelItem => ActorItem.LastName)
+                 <b> | </b>
+             }
+        </td>
+        <td>
+            @Html.ActionLink("Редагувати", "Edit", new { id = FilmItem.Id }) |
+            @Html.ActionLink("Докладніше", "Details", new { id = FilmItem.Id }) |
+            @Html.ActionLink("Вилучити", "Delete", new { id = FilmItem.Id })
+        </td>
+    </tr>
+    }
 </table>
+

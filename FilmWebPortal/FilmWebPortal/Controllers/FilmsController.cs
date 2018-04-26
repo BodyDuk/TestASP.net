@@ -49,6 +49,12 @@ namespace FilmWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Name,Description,ReleaseDay")] Film film)
         {
+            SelectList AllActots = new SelectList(db.Actors);
+            ViewBag.Actors = AllActots;
+            SelectList AllDirectors = new SelectList(db.Directors);
+            ViewBag.Directors = AllDirectors;
+
+
             if (ModelState.IsValid)
             {
                 db.Films.Add(film);

@@ -13,23 +13,41 @@ namespace FilmWebPortal.Controllers
 {
     public class ActorsController : Controller
     {
-        private FilmsContextcs db = new FilmsContextcs();
 
-        public ActionResult ViewJS(Actor actor) => View(db.Actors.ToList());
+
+        public ActionResult ViewJS(Actor actor) {
+            using (FilmsContextcs db = new FilmsContextcs())
+            {
+
+                return View(db.Actors.ToList());
+
+            }
+        }
+       
 
         [HttpPost]
         public ActionResult createJS(Actor actor)
         {
-            db.Actors.Add(actor);
-            db.SaveChanges();
-            string message = "SUCCESS";
-            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+            using (FilmsContextcs db = new FilmsContextcs())
+            {
+                db.Actors.Add(actor);
+                db.SaveChanges();
+                var actors = db.Actors.ToList();
+                return Json(actors, JsonRequestBehavior.AllowGet);
+
+            }
+            
         }
         public JsonResult getActorJS(string id)
         {
-            List<Actor> actor = new List<Actor>();
-            actor = db.Actors.ToList();            
-            return Json(actor, JsonRequestBehavior.AllowGet);
+            using (FilmsContextcs db = new FilmsContextcs())
+            {
+                List<Actor> actor = new List<Actor>();
+                actor = db.Actors.ToList();
+                return Json(actor, JsonRequestBehavior.AllowGet);
+
+            }
+           
         }
 
         public ActionResult Сrutch() => View();
@@ -53,22 +71,32 @@ namespace FilmWebPortal.Controllers
         // GET: Actors
         public async Task<ActionResult> Index()
         {
-            return View(await db.Actors.ToListAsync());
+            using (FilmsContextcs db = new FilmsContextcs())
+            {
+                return View(await db.Actors.ToListAsync());
+
+            }
+          
         }
 
         // GET: Actors/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
+            using (FilmsContextcs db = new FilmsContextcs())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Actor actor = await db.Actors.FindAsync(id);
+                if (actor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(actor);
+
             }
-            Actor actor = await db.Actors.FindAsync(id);
-            if (actor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(actor);
+           
         }
 
         // GET: Actors/Create
@@ -84,29 +112,39 @@ namespace FilmWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,LastName,Age")] Actor actor)
         {
-            if (ModelState.IsValid)
+            using (FilmsContextcs db = new FilmsContextcs())
             {
-                db.Actors.Add(actor);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Actors.Add(actor);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
 
-            return View(actor);
+                return View(actor);
+
+            }
+           
         }
 
         // GET: Actors/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            using (FilmsContextcs db = new FilmsContextcs())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Actor actor = await db.Actors.FindAsync(id);
+                if (actor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(actor);
+
             }
-            Actor actor = await db.Actors.FindAsync(id);
-            if (actor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(actor);
+           
         }
 
         // POST: Actors/Edit/5
@@ -116,28 +154,38 @@ namespace FilmWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Age")] Actor actor)
         {
-            if (ModelState.IsValid)
+            using (FilmsContextcs db = new FilmsContextcs())
             {
-                db.Entry(actor).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(actor).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                return View(actor);
+
             }
-            return View(actor);
+            
         }
 
         // GET: Actors/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
+            using (FilmsContextcs db = new FilmsContextcs())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Actor actor = await db.Actors.FindAsync(id);
+                if (actor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(actor);
+
             }
-            Actor actor = await db.Actors.FindAsync(id);
-            if (actor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(actor);
+           
         }
 
         // POST: Actors/Delete/5
@@ -145,19 +193,29 @@ namespace FilmWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Actor actor = await db.Actors.FindAsync(id);
-            db.Actors.Remove(actor);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            using (FilmsContextcs db = new FilmsContextcs())
+            {
+                Actor actor = await db.Actors.FindAsync(id);
+                db.Actors.Remove(actor);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+
+            }
+           
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            using (FilmsContextcs db = new FilmsContextcs())
             {
-                db.Dispose();
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+                base.Dispose(disposing);
+
             }
-            base.Dispose(disposing);
+           
         }
     }
 }

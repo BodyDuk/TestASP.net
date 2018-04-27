@@ -9,13 +9,18 @@ namespace FilmWebPortal.Models
     public class Film
     {
         public int Id { get; set; }
+
         [Display(Name = "Назва")]
         public string Name { get; set; }
+
         [Display(Name = "Опис")]
         public string Description { get; set; }
+
         [Display(Name = "Дата виходу")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ReleaseDay { get; set; }
         public virtual ICollection<Actor> Actors { get; set; }
+        public virtual ICollection<Actor> ActorsAll { get; set; }
         public Film()
         {
             Actors = new List<Actor>();

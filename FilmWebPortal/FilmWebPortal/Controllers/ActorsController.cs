@@ -14,25 +14,42 @@ namespace FilmWebPortal.Controllers
     public class ActorsController : Controller
     {
         private FilmsContextcs db = new FilmsContextcs();
-        private string URLSaver;
-        public ActionResult Сrutch()
+
+        public ActionResult ViewJS(Actor actor) => View(db.Actors.ToList());
+
+        [HttpPost]
+        public ActionResult createJS(Actor actor)
         {
-            return View();
+            db.Actors.Add(actor);
+            db.SaveChanges();
+            string message = "SUCCESS";
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
+        public JsonResult getActorJS(string id)
+        {
+            List<Actor> actor = new List<Actor>();
+            actor = db.Actors.ToList();            
+            return Json(actor, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Сrutch() => View();
+       
         [HttpPost]
         public ActionResult Сrutch2(string URL)
         {
-            URLSaver += URL;
+            string pas = AppDomain.CurrentDomain.BaseDirectory + "test.jpg";
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(URL, pas);
+            }
             //WebClient wc = new WebClient();
             //TODO DownloadFile
             //wc.DownloadFile(URL, @"logo.gif");
             return View();
         }
         [HttpGet]
-        public ActionResult Сrutch2()
-        {
-            return View();
-        }
+        public ActionResult Сrutch2() => View();
+       
         // GET: Actors
         public async Task<ActionResult> Index()
         {

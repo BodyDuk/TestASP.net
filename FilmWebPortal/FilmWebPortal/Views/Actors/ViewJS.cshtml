@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "ViewJS";
+}
+
+<h2>ViewJS</h2>
+<div class="col-md-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Будь ласка введіть дані актора.</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group col-md-4">
+                <label>Ім'я</label>
+                <input type="text" name="FirstName" id="FirstName" class="form-control" placeholder="Введіть ім'я" required="" />
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Прізвище</label>
+                <input type="text" name="LastName" id="LastName" class="form-control" placeholder="Введіть прізвище" required="" />
+            </div>
+
+            <div class="form-group col-md-3">
+                <label>Вік</label>
+                <input type="number" name="Age" id="Age" class="form-control" placeholder="Введіть вік" required="" />
+            </div>
+
+            <div class="form-group col-md-1">
+                <div style="float: right; display:inline-block;">
+                    <input class="btn btn-primary" name="btnSave" id="btnSave" onclick="data()" value="Додати" type="button">
+                </div>
+            </div>
+        </div>
+    </div><hr />
+    <table id="ActorTable" class="table table-bordered table-striped table-responsive table-hover">
+        <thead>
+            <tr>
+                <th align="left" class="productth">ID</th>
+                <th align="left" class="productth">Ім'я актора</th>
+                <th align="left" class="productth">Прізвище актора</th>
+                <th align="left" class="productth">Вік</th>
+            </tr>
+        </thead>
+        <tbody id="actorsTable"></tbody>
+    </table>
+</div>
+<script src="~/Scripts/controller/actorsController.js"></script>

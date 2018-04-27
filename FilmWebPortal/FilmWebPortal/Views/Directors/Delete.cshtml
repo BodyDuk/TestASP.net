@@ -1,0 +1,34 @@
+﻿@model FilmWebPortal.Models.Director
+
+@{
+    ViewBag.Title = "Вилучити";
+
+}
+
+<h2>Вилучити</h2>
+
+<h3 style="color:red;">Ви впевннені що хочите вилучити цього Режисера?</h3>
+
+<div>
+    <h4>Режисер</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {@Html.AntiForgeryToken()
+
+    <div class="form-actions a">
+        <input style="background-color:red" ; type="submit" value="Вилучити" class="btn btn-default" /> |
+        @Html.ActionLink("Повернутися до списку", "Index")
+    </div>
+}
+</div>

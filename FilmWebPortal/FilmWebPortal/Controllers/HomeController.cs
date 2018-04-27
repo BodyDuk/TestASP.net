@@ -13,11 +13,12 @@ namespace FilmWebPortal.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            using (FilmsContextcs db = new FilmsContextcs())
-            {
-                return View(db.Films.ToList());
-            }
-            //return View();
+            //using (FilmsContextcs db = new FilmsContextcs())
+            //{
+            //    return View(db.Films.ToList());
+
+            //}
+            return View();
         }
 
         public ActionResult About()

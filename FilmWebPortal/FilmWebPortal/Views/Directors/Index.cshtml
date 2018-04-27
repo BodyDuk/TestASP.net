@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FilmWebPortal.Models.Director>
+
+@{
+    ViewBag.Title = "Перелік";
+    
+}
+
+<h2>Перелік</h2>
+
+<p>
+    @Html.ActionLink("Додати режисера", "Create")
+</p>
+
+
+<table class="table">
+    <tr>
+        <th>
+           Режисери
+        </th>
+        <th>Фільми</th>
+    </tr>
+
+@foreach (var Directoritem in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => Directoritem.Name)
+        </td>
+        <td>
+            <b>| </b>
+            @foreach (var FilmItem in Directoritem.Films)
+              {
+                 @Html.DisplayFor(modelItem => FilmItem.Name)
+               <b> | </b>
+                }
+        </td>
+        <td>
+            @Html.ActionLink("Редагувати", "Edit", new { id = Directoritem.Id }) |
+            @Html.ActionLink("Докладніше", "Details", new { id = Directoritem.Id }) |
+            @Html.ActionLink("Вилучити", "Delete", new { id = Directoritem.Id })
+        </td>
+    </tr>
+}
+</table>

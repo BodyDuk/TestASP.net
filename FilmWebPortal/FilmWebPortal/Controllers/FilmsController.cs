@@ -39,22 +39,16 @@ namespace FilmWebPortal.Controllers
         // GET: Films/Create
         public ActionResult Create()
         {
-            return View();
+            Film film = new Film();
+            film.ActorsAll = db.Actors.ToList();
+            return View(model: film);
         }
 
         // POST: Films/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Description,ReleaseDay")] Film film)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Description,ReleaseDay,Actors")] Film film)
         {
-            SelectList AllActots = new SelectList(db.Actors);
-            ViewBag.Actors = AllActots;
-            SelectList AllDirectors = new SelectList(db.Directors);
-            ViewBag.Directors = AllDirectors;
-
-
             if (ModelState.IsValid)
             {
                 db.Films.Add(film);
@@ -81,8 +75,6 @@ namespace FilmWebPortal.Controllers
         }
 
         // POST: Films/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Description,ReleaseDay")] Film film)

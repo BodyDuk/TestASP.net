@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FilmWebPortal.Models;
+using System.Collections;
+using FilmWebPortal.ViewModels;
 
 namespace FilmWebPortal.Controllers
 {
@@ -20,9 +22,9 @@ namespace FilmWebPortal.Controllers
             //using (FilmsContextcs db = new FilmsContextcs())
             //{ якщо зробити через using то на вюшку не передастся обєкт і ми отримаємо помилку
             FilmsContextcs db = new FilmsContextcs();
-                return View(await db.Films.ToListAsync());
+            return View(await db.Films.ToListAsync());
             //}
-          
+
         }
 
         // GET: Films/Details/5
@@ -41,7 +43,7 @@ namespace FilmWebPortal.Controllers
                 }
                 return View(film);
             }
-           
+
         }
 
         // GET: Films/Create
@@ -49,33 +51,47 @@ namespace FilmWebPortal.Controllers
         {
             using (FilmsContextcs db = new FilmsContextcs())
             {
-                Film film = new Film();
+                FilmViewModel film = new FilmViewModel();
                 film.ActorsAll = db.Actors.ToList();
                 return View(model: film);
             }
-           
+
         }
 
-        // POST: Films/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Description,ReleaseDay,Actors")] Film film)
+        //POST: Films/Create
+        public async Task<JsonResult> SaveFilm(/*string Name, string Description, List<int> SelectedActors*/FilmViewModel model)
         {
             using (FilmsContextcs db = new FilmsContextcs())
             {
-                if (ModelState.IsValid)
+                var film = (Film)model; 
+                foreach (var item in model.SelectedActors)
                 {
-                   
-
-                    db.Films.Add(film);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    var actors = db.Actors.Find(item);
+                    film.Actors.Add(actors);
                 }
-
-                return View(film);
+                db.Films.Add(film);
+                await db.SaveChangesAsync();
             }
-           
+                return Json(JsonRequestBehavior.AllowGet);
         }
+        // POST: Films/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create([Bind(Include = "Id,Name,Description,ReleaseDay,Actors")] Film film)
+        //{
+        //    using (FilmsContextcs db = new FilmsContextcs())
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            db.Films.Add(film);
+        //            await db.SaveChangesAsync();
+        //            return RedirectToAction("Index");
+        //        }
+
+        //        return View(film);
+        //    }
+
+        //}
 
         // GET: Films/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -93,7 +109,7 @@ namespace FilmWebPortal.Controllers
                 }
                 return View(film);
             }
-           
+
         }
 
         // POST: Films/Edit/5
@@ -111,7 +127,7 @@ namespace FilmWebPortal.Controllers
                 }
                 return View(film);
             }
-            
+
         }
 
         // GET: Films/Delete/5
@@ -130,7 +146,7 @@ namespace FilmWebPortal.Controllers
                 }
                 return View(film);
             }
-          
+
         }
 
         // POST: Films/Delete/5
@@ -145,7 +161,7 @@ namespace FilmWebPortal.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-           
+
         }
 
         protected override void Dispose(bool disposing)
@@ -158,7 +174,7 @@ namespace FilmWebPortal.Controllers
                 }
                 base.Dispose(disposing);
             }
-            
+
         }
     }
 }

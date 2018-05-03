@@ -27,5 +27,7 @@ namespace FilmWebPortal.Models
         {
             Films = new List<Film>();
         }
+
+        public  bool IsCheck  { get; set; }
     }
 }

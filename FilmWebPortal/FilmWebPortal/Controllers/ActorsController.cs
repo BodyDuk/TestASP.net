@@ -18,9 +18,7 @@ namespace FilmWebPortal.Controllers
         public ActionResult ViewJS(Actor actor) {
             using (FilmsContextcs db = new FilmsContextcs())
             {
-
-                return View(db.Actors.ToList());
-
+             return View(db.Actors.ToList());
             }
         }
        
@@ -34,7 +32,6 @@ namespace FilmWebPortal.Controllers
                 db.SaveChanges();
                 var actors = db.Actors.ToList();
                 return Json(actors, JsonRequestBehavior.AllowGet);
-
             }
             
         }
@@ -45,9 +42,7 @@ namespace FilmWebPortal.Controllers
                 List<Actor> actor = new List<Actor>();
                 actor = db.Actors.ToList();
                 return Json(actor, JsonRequestBehavior.AllowGet);
-
-            }
-           
+            }         
         }
 
         public ActionResult Сrutch() => View();

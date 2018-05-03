@@ -2,7 +2,8 @@
 
 @{
     ViewBag.Title = "Delete";
-   
+}
+
 
 <h2>Вилучити</h2>
 
@@ -41,7 +42,7 @@
     {@Html.AntiForgeryToken()
 
     <div class="form-actions a">
-        <input style="background-color:red" ; type="submit" value="Вилучити" class="btn btn-default" /> |
+        <input @*style="background-color:red" ;*@ type="submit" value="Вилучити" class="btn btn-danger" /> |
         @Html.ActionLink("Повернутися до списку", "Index")
     </div>
 }
